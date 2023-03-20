@@ -29,29 +29,38 @@ function Attendance() {
 
 
   const fetchallStudentByGradeSection = async () => {
-    console.log("selectgradeid", selectedGrade?.id);
+    
     await axios
       .get(`http://192.168.1.114:8000/api/allStudent/${selectedGrade?.id}/${selectedSection?.id}`)
       .then((res) => setStudent(res.data))
       .catch((err) => console.log(err));
   };
 
- console.log(student);
+ console.log('student',student);
 
   useEffect(() => {
     fetchGradeSection();
-    fetchallStudentByGradeSection();
   }, []);
+
+  useEffect(() => {
+  console.log("selectgradeid", selectedGrade);
+  console.log("selectsectionid", selectedSection);
+   if(selectedGrade && selectedSection )
+   {
+     fetchallStudentByGradeSection();
+      }
+}, [selectedGrade, selectedSection])
 
 
 
 
 
   const handleGradeChange = (value) => {
-    setSelectedGrade(value);
+    
     const selected = grade.find((grade) => grade.name === value);
+    
     setSection(selected.sections);
-    console.log('selectedGrade',selectedGrade)
+    setSelectedGrade(selected);
   };
   
 
@@ -73,7 +82,7 @@ function Attendance() {
         setSelected={(value) => {
           const selected = section.find((s) => s.letter === value);
           setSelectedSection(selected);
-          console.log("selectedGrade", selectedGrade);
+         
         }}
         data={section.map((s) => s.letter)}
         placeholder={"Select Section"}
@@ -86,10 +95,10 @@ function Attendance() {
         inputStyles={{ color: "white" }}
         
       />
-
-      <Text style={styles.titleGrade}>
-        {selectedGrade?.id} {selectedSection?.id}
-      </Text>
+      {selectedGrade && selectedSection &&
+        <Text style={styles.titleGrade}>
+          {selectedGrade?.id} {selectedSection?.id}
+        </Text>}
       {student &&
         student.map((student) => {
           return <Text key={student.id}>{student.firstName}</Text>;
