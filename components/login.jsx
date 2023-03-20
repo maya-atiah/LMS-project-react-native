@@ -5,7 +5,7 @@ import { ImageBackground, StyleSheet, View, Image, Text, TextInput, Button, Aler
 
 const Login = () => {
     const [email, setEmail]= useState("");
-    const [Password, setPassword]= useState("");
+    const [password, setPassword]= useState("");
     const[errorMessage, setErrorMessage]=useState("");
 
     const handleEmailChange = (text) => {
@@ -18,19 +18,20 @@ const Login = () => {
 
     const handleSubmit = async () => {
         try{
-            const response = await fetch("http://192.168.0.113:8000/api/user/login ", {
+            const response = await fetch(`http://192.168.43.98:8000/api/user/login`, {
                 method: "POST",
                 headers:{
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email,
-                    Password,
+                    password,
                 }),
             });
             const data = await response.json();
             {console.log(data)}
-            if(response.ok){
+            if(response){
+                console.log("meshyeeee")
                 Alert.alert("Login successful", "", [{
                     text: "ok",
                     onPress: () => {
@@ -43,7 +44,7 @@ const Login = () => {
             }
         } catch (error){
             console.error(error);
-            Alert.alert("Internet error")
+            Alert.alert("errorrrr")
         }
     };
 
@@ -59,10 +60,12 @@ const Login = () => {
    
 
 
-    <View style={styles.container}>
+    <View style={styles.containerrr}>
+      
 <Image
        source={require('../assets/logo.png')}
-       style={{width: 360, height: 200}}
+    //    style={{width: 360, height: 200}}
+    style={styles.imagelogin}
   
 />
 
@@ -72,41 +75,47 @@ const Login = () => {
     <TouchableOpacity style={styles.button} onPress={handleSubmit}>
     <Text style={styles.buttonText}>Login</Text>
     </TouchableOpacity>
-        </View>
+    </View>
+       
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    containerrr: {
       flex: 1,
-      backgroundColor: '#017f94',
+      backgroundColor:'#017f94',
       alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: 400,
-     
+      marginTop: 150,
     },
 
-    title:{
-        color: '#EE8B3A',
+    title: {
+        color:'#EE8B3A',
         fontSize: 35,
-    //  marginBottom: 10,
-     fontWeight: 100,
+        marginBottom: 40,
+        height:50,
+    },
+    
+    imagelogin:{
+       backgroundColor:'#017f94',
+       width: 360, 
+       height: 200
     },
     
     input:{
         marginTop: 0,
-        width: '80%',
+        width: 300,
         height: 45,
         margin: 10,
         padding: 10,
         borderColor: '#EE8B3A',
         borderRadius: 5,
         borderWidth: 2,
-        color: 'black',
+        color: '#EE8B3A',
     },
 
+
     button:{
-        width: '40%',
+        width: 150,
         height: 50,
         marginTop: 10,
         backgroundColor: '#EE8B3A',
@@ -117,12 +126,9 @@ const styles = StyleSheet.create({
     },
     buttonText:{
         color: '#fff',
-        fontSize: 18,
+        fontSize: 25,
 
     }
-
-
-
 
   })
 

@@ -7,18 +7,18 @@ import Login from "./components/login";
 
 export default function App() {
   return (
-    <View >
-      {/* <Text>Hi, I am Assala  </Text>
-      <StatusBar style="auto" /> */}
+    <View  style={styles.background}>
+    
       <Login/>
     </View>
   );
 }
 
+
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor:'#017f94',
     alignItems: 'center',
     justifyContent: 'center',
   },
