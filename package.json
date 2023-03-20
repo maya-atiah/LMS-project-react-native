@@ -20,6 +20,7 @@
     "react-native": "0.71.3",
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-multi-level-selector": "^1.0.9",
+    "react-native-table-component": "^1.2.2",
     "react-native-web": "~0.18.10"
   },
   "devDependencies": {
