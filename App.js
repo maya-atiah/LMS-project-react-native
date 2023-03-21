@@ -1,9 +1,9 @@
 // import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import Login from "./components/login";
+// import Login from "./components/login";
 import Attendance from "./components/Attendance";
-import { NavigationContainer } from '@react-navigation/native';
+// import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 
@@ -17,12 +17,15 @@ export default function App() {
     //   <Login/>
     // </View>
 
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Attendance" component={Attendance} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen name="Login" component={Login} />
+    //     <Stack.Screen name="Attendance" component={Attendance} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <View>
+      <Attendance/>
+    </View>
 
   );
 }
