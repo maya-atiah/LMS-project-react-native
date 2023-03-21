@@ -31,18 +31,15 @@ function Attendance() {
       .catch((err) => console.log(err));
   };
 
-  const fetchAttendance = async (id, status) => {
+   const fetchAttendance = async (id, status) => {
     const res = await axios.post(
       `http://192.168.43.159:8000/api/attendance/${id}`,
       {
         status,
       }
     );
-    Alert.alert("My Alert Msg", [
-      {
-        text: res.data.message,
-      },
-    ]);
+
+    Alert.alert(res.data.message);
   };
 
   useEffect(() => {
