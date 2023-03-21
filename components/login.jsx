@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { ImageBackground, StyleSheet, View, Image, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
-
+import { NavigationContainer } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Attendance from "./components/Attendance";
 
 const Login = () => {
     const [email, setEmail]= useState("");
@@ -36,7 +38,9 @@ const Login = () => {
                     text: "ok",
                     onPress: () => {
                         window.localStorage.setItem("token", data.token);
+                        navigation.navigate('Attendance');
                     }
+                   
                 },
             ]);
             }else{
@@ -62,21 +66,19 @@ const Login = () => {
 
     <View style={styles.containerrr}>
       
-<Image
+    <Image
        source={require('../assets/logo.png')}
-    //    style={{width: 360, height: 200}}
-    style={styles.imagelogin}
+       style={styles.imagelogin}
   
-/>
+    />
 
      <Text style={styles.title}>Login</Text>
-    <TextInput style={styles.input} placeholder="Enter your Email" onChangeText={handleEmailChange}></TextInput>
-    <TextInput style={styles.input} placeholder="Enter your Password" onChangeText={handlePasswordChange}></TextInput>
-    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-    <Text style={styles.buttonText}>Login</Text>
-    </TouchableOpacity>
-    </View>
-       
+     <TextInput style={styles.input} placeholder="Enter your Email" onChangeText={handleEmailChange}></TextInput>
+     <TextInput style={styles.input} placeholder="Enter your Password" onChangeText={handlePasswordChange}></TextInput>
+     <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+     <Text style={styles.buttonText}>Login</Text>
+     </TouchableOpacity>
+     </View>  
   );
 };
 
@@ -113,7 +115,6 @@ const styles = StyleSheet.create({
         color: '#EE8B3A',
     },
 
-
     button:{
         width: 150,
         height: 50,
@@ -121,15 +122,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#EE8B3A',
         borderRadius: 5,
         alignItems: 'center',
-        justifyContent: 'center',
-        
+        justifyContent: 'center', 
     },
+
     buttonText:{
         color: '#fff',
         fontSize: 25,
-
     }
-
   })
-
 export default Login;
