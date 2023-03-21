@@ -7,21 +7,21 @@ import { useEffect } from "react";
 import RadioButtonRN from "radio-buttons-react-native";
 import axios from "axios";
 import { ScrollView } from "react-native";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 
-const Stack = createStackNavigator();
-
-function Attendance() {
+function Attendance({ navigation }) {
   const [grade, setGrade] = useState([]);
   const [section, setSection] = useState([]);
   const [selectedGrade, setSelectedGrade] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
   const [student, setStudent] = useState([]);
 
+  const logOut = () => {
+    navigation.navigate("Login");
+  };
+
   const fetchGradeSection = async () => {
     await axios
-      .get("http://192.168.1.114:8001/api/grade")
+      .get("http://192.168.14.227:8000/api/grade")
       .then((res) => setGrade(res.data))
       .catch((err) => console.log(err));
   };
@@ -29,7 +29,7 @@ function Attendance() {
   const fetchallStudentByGradeSection = async () => {
     await axios
       .get(
-        `http://192.168.1.114:8001/api/allStudent/${selectedGrade?.id}/${selectedSection?.id}`
+        `http://192.168.14.227:8000/api/allStudent/${selectedGrade?.id}/${selectedSection?.id}`
       )
       .then((res) => setStudent(res.data))
       .catch((err) => console.log(err));
@@ -37,7 +37,7 @@ function Attendance() {
 
   const fetchAttendance = async (id, status) => {
     const res = await axios.post(
-      `http://192.168.1.114:8001/api/attendance/${id}`,
+      `http://192.168.14.227:8000/api/attendance/${id}`,
       {
         status,
       }
@@ -73,14 +73,6 @@ function Attendance() {
       label: "late",
     },
   ];
-
-  const logOut = ({ navigation }) => {
-    // window.location.href = "/login";
-    // window.localStorage.clear();
-    // localStorage.removeItem("token");
-
-    navigation.navigate("login");
-  };
 
   return (
     <ScrollView>
@@ -133,7 +125,10 @@ function Attendance() {
               </View>
             );
           })}
-        <TouchableOpacity style={styles.button} onPress={()=>logOut}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => logOut(navigation)}
+        >
           <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -143,16 +138,16 @@ function Attendance() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop: 50,
     paddingHorizontal: 20,
   },
   title: {
     fontSize: 30,
-    color: "#017f94",
+    color: "#1e90ff",
   },
   titleGrade: {
     fontSize: 20,
-    color: "#017f94",
+    color: "#1e90ff",
   },
   form: {
     marginHorizontal: 20,
@@ -169,7 +164,21 @@ const styles = StyleSheet.create({
   },
   titlename: {
     fontSize: 20,
-    color: "#017f94",
+    color: "#1e90ff",
+  },
+   button: {
+    width: 100,
+    height: 25,
+    marginTop: 10,
+    backgroundColor: "#EE8B3A",
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 15,
   },
 });
 

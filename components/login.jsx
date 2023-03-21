@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from "react-native";
+import { KeyboardAvoidingView } from "react-native-web";
 // import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
 
@@ -73,29 +74,36 @@ const Login = ({ navigation }) => {
     }
   }, [errorMessage]);
   return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-    <View style={styles.containerrr}>
-      <Image source={require("../assets/logo.png")} style={styles.imagelogin} />
+  
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+      >
+        <View style={styles.containerrr}>
+          <Image
+            source={require("../assets/logo.png")}
+            style={styles.imagelogin}
+          />
 
-      <Text style={styles.title}>Welcome back</Text>
-      <TextInput
-        style={styles.input}
-        placeholder='Enter your Email'
-        onChangeText={handleEmailChange}
-      ></TextInput>
-      <TextInput
-        style={styles.input}
-        placeholder='Enter your Password'
-        onChangeText={handlePasswordChange}
-        secureTextEntry={true}
-      ></TextInput>
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-      </View>
+          <Text style={styles.title}>Welcome back</Text>
+          <TextInput
+            style={styles.input}
+            placeholder='Enter your Email'
+            onChangeText={handleEmailChange}
+          ></TextInput>
+          <TextInput
+            style={styles.input}
+            placeholder='Enter your Password'
+            onChangeText={handlePasswordChange}
+            secureTextEntry={true}
+          ></TextInput>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </View>
       </TouchableWithoutFeedback>
+   
   );
 };
 
