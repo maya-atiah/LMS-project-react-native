@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+// import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import Login from "./components/login";
