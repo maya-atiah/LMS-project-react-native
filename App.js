@@ -1,7 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
+// import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import Login from "./components/login";
+import Attendance from './components/Attendance';
+// import Login from "./components/login";
+
 
 
 
@@ -10,7 +12,8 @@ export default function App() {
     <View >
       {/* <Text>Hi, I am Assala  </Text>
       <StatusBar style="auto" /> */}
-      <Login/>
+      {/* <Login/> */}
+      <Attendance/>
     </View>
   );
 }
