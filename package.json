@@ -19,6 +19,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.3",
+    "react-native-customizable-radio-button": "^1.0.12",
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-multi-level-selector": "^1.0.9",
     "react-native-radio-buttons-group": "^2.3.2",

@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { StyleSheet } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useState } from "react";
 import { useEffect } from "react";
-import RadioGroup from "react-native-radio-buttons-group";
+import RadioButtonRN from "radio-buttons-react-native";
 import axios from "axios";
 import { ScrollView } from "react-native";
 
@@ -17,7 +17,7 @@ function Attendance() {
 
   const fetchGradeSection = async () => {
     await axios
-      .get("http://192.168.1.114:8000/api/grade")
+      .get("http://192.168.43.159:8000/api/grade")
       .then((res) => setGrade(res.data))
       .catch((err) => console.log(err));
   };
@@ -25,10 +25,24 @@ function Attendance() {
   const fetchallStudentByGradeSection = async () => {
     await axios
       .get(
-        `http://192.168.1.114:8000/api/allStudent/${selectedGrade?.id}/${selectedSection?.id}`
+        `http://192.168.43.159:8000/api/allStudent/${selectedGrade?.id}/${selectedSection?.id}`
       )
       .then((res) => setStudent(res.data))
       .catch((err) => console.log(err));
+  };
+
+  const fetchAttendance = async (id, status) => {
+    const res = await axios.post(
+      `http://192.168.43.159:8000/api/attendance/${id}`,
+      {
+        status,
+      }
+    );
+    Alert.alert("My Alert Msg", [
+      {
+        text: res.data.message,
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -47,27 +61,17 @@ function Attendance() {
     setSelectedGrade(selected);
   };
 
-  const [radioButtons, setRadioButtons] = useState([
+  const data = [
     {
-      id: "1", // acts as primary key, should be unique and non-empty string
       label: "present",
-      value: "present",
     },
     {
-      id: "2",
       label: "absent",
-      value: "absent",
     },
     {
-      id: "3",
       label: "late",
-      value: "late",
     },
-  ]);
-
-  function onPressRadioButton(radioButtonsArray) {
-    setRadioButtons(radioButtonsArray);
-  }
+  ];
 
   return (
     <ScrollView>
@@ -110,10 +114,12 @@ function Attendance() {
                 <Text style={styles.titlename}>
                   {s.firstName} {s.lastName}
                 </Text>
-                <RadioGroup
-                  style={styles.titlename}
-                  radioButtons={radioButtons}
-                  onPress={onPressRadioButton}
+                <RadioButtonRN
+                  data={data}
+                  selectedBtn={(e) => {
+                    console.log(e.label);
+                    fetchAttendance(s.id, e.label);
+                  }}
                 />
               </View>
             );
@@ -127,7 +133,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
     paddingHorizontal: 20,
-
   },
   title: {
     fontSize: 30,
