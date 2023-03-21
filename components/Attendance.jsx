@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useState } from "react";
@@ -7,6 +7,10 @@ import { useEffect } from "react";
 import RadioButtonRN from "radio-buttons-react-native";
 import axios from "axios";
 import { ScrollView } from "react-native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const Stack = createStackNavigator();
 
 function Attendance() {
   const [grade, setGrade] = useState([]);
@@ -17,7 +21,7 @@ function Attendance() {
 
   const fetchGradeSection = async () => {
     await axios
-      .get("http://192.168.43.159:8000/api/grade")
+      .get("http://192.168.1.114:8001/api/grade")
       .then((res) => setGrade(res.data))
       .catch((err) => console.log(err));
   };
@@ -25,15 +29,15 @@ function Attendance() {
   const fetchallStudentByGradeSection = async () => {
     await axios
       .get(
-        `http://192.168.43.159:8000/api/allStudent/${selectedGrade?.id}/${selectedSection?.id}`
+        `http://192.168.1.114:8001/api/allStudent/${selectedGrade?.id}/${selectedSection?.id}`
       )
       .then((res) => setStudent(res.data))
       .catch((err) => console.log(err));
   };
 
-   const fetchAttendance = async (id, status) => {
+  const fetchAttendance = async (id, status) => {
     const res = await axios.post(
-      `http://192.168.43.159:8000/api/attendance/${id}`,
+      `http://192.168.1.114:8001/api/attendance/${id}`,
       {
         status,
       }
@@ -69,6 +73,14 @@ function Attendance() {
       label: "late",
     },
   ];
+
+  const logOut = ({ navigation }) => {
+    // window.location.href = "/login";
+    // window.localStorage.clear();
+    // localStorage.removeItem("token");
+
+    navigation.navigate("login");
+  };
 
   return (
     <ScrollView>
@@ -121,6 +133,9 @@ function Attendance() {
               </View>
             );
           })}
+        <TouchableOpacity style={styles.button} onPress={()=>logOut}>
+          <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -128,16 +143,16 @@ function Attendance() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
   title: {
     fontSize: 30,
-    color: "#1e90ff",
+    color: "#017f94",
   },
   titleGrade: {
     fontSize: 20,
-    color: "#1e90ff",
+    color: "#017f94",
   },
   form: {
     marginHorizontal: 20,
@@ -154,7 +169,7 @@ const styles = StyleSheet.create({
   },
   titlename: {
     fontSize: 20,
-    color: "#1e90ff",
+    color: "#017f94",
   },
 });
 
